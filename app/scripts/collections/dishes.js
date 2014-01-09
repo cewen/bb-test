@@ -1,3 +1,4 @@
 IIAS.Collections.Dishes = Backbone.Collection.extend({
-	model: IIAS.Models.Dish
+	model: IIAS.Models.Dish,
+	url: '/api/dishes'
 });
