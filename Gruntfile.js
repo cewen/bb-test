@@ -32,14 +32,6 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
-            },
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -52,16 +44,6 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
                     'test/spec/**/*.js'
                 ]
-            },
-            jst: {
-                files: [
-                    '<%= yeoman.app %>/scripts/templates/*.ejs'
-                ],
-                tasks: ['jst']
-            },
-            test: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
-                tasks: ['test']
             }
         },
         connect: {
@@ -124,36 +106,6 @@ module.exports = function (grunt) {
                 '!<%= yeoman.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
-        },
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://localhost:<%= connect.test.options.port %>/index.html']
-                }
-            }
-        },
-        coffee: {
-            dist: {
-                files: [{
-                    // rather than compiling multiple files here you should
-                    // require them into your main .coffee file
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
-            }
         },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
@@ -231,13 +183,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        jst: {
-            compile: {
-                files: {
-                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
-                }
-            }
-        },
         rev: {
             dist: {
                 files: {
@@ -264,9 +209,7 @@ module.exports = function (grunt) {
         if (target === 'test') {
             return grunt.task.run([
                 'clean:server',
-                'coffee',
                 'createDefaultTemplate',
-                'jst',
                 'connect:test',
                 'watch:livereload'
             ]);
@@ -274,9 +217,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'coffee:dist',
             'createDefaultTemplate',
-            'jst',
             'connect:livereload',
             'open',
             'watch'
@@ -285,19 +226,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        'coffee',
         'createDefaultTemplate',
-        'jst',
         'connect:test',
-        'mocha',
         'watch:test'
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
-        'coffee',
         'createDefaultTemplate',
-        'jst',
         'useminPrepare',
         'imagemin',
         'htmlmin',
