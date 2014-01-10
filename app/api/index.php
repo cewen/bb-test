@@ -55,7 +55,7 @@ $app->get('/dishes', function() {
 	
 	$result_array = array();
 	
-	$res = mysqli_query($mysqli, "SELECT * FROM items WHERE flag != 1");
+	$res = mysqli_query($mysqli, "SELECT * FROM items");
 	
 	while ($row = mysqli_fetch_assoc($res)) {
 		array_push($result_array, $row);

@@ -15,7 +15,8 @@ window.IIAS = {
 		 dishes.fetch({
 		 	success: function(collection){
 		 		console.log('Dishes retrieved successfully')
-				new IIAS.Views.Dishes({collection: dishes}).render();
+				//new IIAS.Views.Dishes({collection: dishes}).render();
+				new IIAS.Views.Search({collection: dishes}).render();
 		 	},
 			error: function(){
 				console.log('Failed to retrieve dishes')
