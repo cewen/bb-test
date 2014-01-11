@@ -25,7 +25,7 @@ IIAS.Views.Search = Backbone.View.extend({
 		var tempDish = new IIAS.Models.Dish({
 			name: val,
 			response: '',
-			is_salad: 0,
+			is_salad: 2, // set to 2 temporarily so we know this is user-generated
 			flag: 0
 		});
 		
@@ -34,30 +34,25 @@ IIAS.Views.Search = Backbone.View.extend({
 		if(typeof dish === 'object'){
 			response = dish.get('response');
 			responseView = new IIAS.Views.Response({ model: dish });
+			
+			// TODO: Remove Submit view rather than manually emptying container with jQuery?
+			$('#user-submission').empty();
 		}
 		else if(val.length){
 			tempDish.set({ response: 'The jury\'s still out on that one.' })
 			responseView = new IIAS.Views.Response({ model: tempDish });
 			
-			//var submitView = new IIAS.Views.Submit({  });
+			var submitView = new IIAS.Views.Submit({ model: tempDish });
+			submitView.render();
 		}
 		else {
 			tempDish.set({ response: 'How about you enter a dish? Wise guy.' })
 			responseView = new IIAS.Views.Response({ model: tempDish });
+			
+			// TODO: Remove Submit view rather than manually emptying container with jQuery?
+			$('#user-submission').empty();
 		}
 		
 		responseView.render();
-	},
-	
-	// addSubmissionForm: function(name){
-// 		var newDish = new IIAS.Models.Dish({
-// 			name: name,
-// 			is_salad: false,
-// 			response: '',
-// 			flag: 1
-// 		});
-// 	//	console.log(this.templateSubmit(newDish.attributes))
-// 		console.log(this.$el.find('h2'))
-// 		this.$el.find('h2').append(this.templateSubmit(newDish.attributes));
-// 	}
+	}
 });

@@ -1,19 +1,19 @@
 IIAS.Views.Response = Backbone.View.extend({
 	el: '#response',
 
+	template: _.template(
+		'<span class="'+
+			'<% if(is_salad == 1){ %>'+
+				'is-salad'+
+			'<% }'+
+			'else if(is_salad == 0){ %>'+
+				'not-salad'+
+			'<% } %>">'+
+				'<%= response %>'+
+		'</span>'
+	),
+
 	render: function(){
-		this.$el.hide().html(this.model.get('response')).fadeIn();
-	},
-	
-	addSubmissionForm: function(name){
-		var newDish = new IIAS.Models.Dish({
-			name: name,
-			is_salad: false,
-			response: '',
-			flag: 1
-		});
-		console.log(this.templateSubmit(newDish.attributes))
-		console.log(this.$el.find('h2'))
-		this.$el.find('h2').append(this.templateSubmit(newDish.attributes));
+		this.$el.hide().html(this.template(this.model.attributes)).fadeIn();
 	}
 });

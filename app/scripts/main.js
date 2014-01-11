@@ -22,8 +22,6 @@ window.IIAS = {
 				console.log('Failed to retrieve dishes')
 			}
 		 });
-
-		 
 	}
 };
 

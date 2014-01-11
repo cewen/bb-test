@@ -18,3 +18,15 @@ h1 small {
 .response {
 	color: #1a2b33;
 }
+
+.is-salad {
+	color: #93b264;
+}
+.not-salad {
+	color: #c34960;
+}
+
+
+#user-submission {
+	margin: 20px 0;
+}
