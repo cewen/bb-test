@@ -83,11 +83,13 @@ $app->post('/dish', function () use ($app){
 	$db = new db();
 	$mysqli = $db->connect();
 
-	$data = json_decode($app->request->getBody());
-	$name = filter_var($data->name, FILTER_SANITIZE_STRING);
+	$request = json_decode($app->request->getBody());
+	$name = filter_var($request->name, FILTER_SANITIZE_STRING);
 	
 	mysqli_query($mysqli, "INSERT INTO items (name, response, is_salad, flag) VALUES('$name', '', 2, 1)");
 	
+	$app->response()->header('Content-Type', 'application/json');
+	echo json_encode($request);
 });
 
 // // PUT route
