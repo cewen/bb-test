@@ -31,6 +31,7 @@ IIAS.Views.Search = Backbone.View.extend({
 		
 		var responseView;
 		
+		// If we find a matching dish in the Collection, pass it to a Response View
 		if(typeof dish === 'object'){
 			response = dish.get('response');
 			responseView = new IIAS.Views.Response({ model: dish });
@@ -38,6 +39,7 @@ IIAS.Views.Search = Backbone.View.extend({
 			// TODO: Remove Submit view rather than manually emptying container with jQuery?
 			$('#user-submission').empty();
 		}
+		// Else if a submission was made but no matching dish was found, send tempDish to a Response View
 		else if(val.length){
 			tempDish.set({ response: 'The jury\'s still out on that one.' })
 			responseView = new IIAS.Views.Response({ model: tempDish });
@@ -45,6 +47,7 @@ IIAS.Views.Search = Backbone.View.extend({
 			var submitView = new IIAS.Views.Submit({ model: tempDish });
 			submitView.render();
 		}
+		// Else if no text was entered, send a custom message along with tempDish to a Response View
 		else {
 			tempDish.set({ response: 'How about you enter a dish? Wise guy.' })
 			responseView = new IIAS.Views.Response({ model: tempDish });
