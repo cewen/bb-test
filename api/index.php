@@ -79,33 +79,37 @@ $app->get('/dish/:name', function($name){
 
 
 // POST route
-$app->post(
-    '/post',
-    function () {
-        echo 'This is a POST route';
-    }
-);
+$app->post('/dish', function () use ($app){
+	$db = new db();
+	$mysqli = $db->connect();
 
-// PUT route
-$app->put(
-    '/put',
-    function () {
-        echo 'This is a PUT route';
-    }
-);
-
-// PATCH route
-$app->patch('/patch', function () {
-    echo 'This is a PATCH route';
+	$data = json_decode($app->request->getBody());
+	$name = filter_var($data->name, FILTER_SANITIZE_STRING);
+	
+	mysqli_query($mysqli, "INSERT INTO items (name, response, is_salad, flag) VALUES('$name', '', 2, 1)");
+	
 });
 
-// DELETE route
-$app->delete(
-    '/delete',
-    function () {
-        echo 'This is a DELETE route';
-    }
-);
+// // PUT route
+// $app->put(
+//     '/put',
+//     function () {
+//         echo 'This is a PUT route';
+//     }
+// );
+// 
+// // PATCH route
+// $app->patch('/patch', function () {
+//     echo 'This is a PATCH route';
+// });
+// 
+// // DELETE route
+// $app->delete(
+//     '/delete',
+//     function () {
+//         echo 'This is a DELETE route';
+//     }
+// );
 
 /**
  * Step 4: Run the Slim application
