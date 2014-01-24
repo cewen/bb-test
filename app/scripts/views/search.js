@@ -36,26 +36,39 @@ IIAS.Views.Search = Backbone.View.extend({
 			response = dish.get('response');
 			responseView = new IIAS.Views.Response({ model: dish });
 			
-			// TODO: Remove Submit view rather than manually emptying container with jQuery?
-			$('#user-submission').empty();
+			this.removeSubmitView();
 		}
 		// Else if a submission was made but no matching dish was found, send tempDish to a Response View
 		else if(val.length){
-			tempDish.set({ response: 'The jury\'s still out on that one.' })
-			responseView = new IIAS.Views.Response({ model: tempDish });
+			var regex = /^[\w\-\s]+$/;
 			
-			var submitView = new IIAS.Views.Submit({ model: tempDish });
-			submitView.render();
+			if(regex.test(val) == true){
+				tempDish.set({ response: 'The jury\'s still out on that one.' });
+				
+				var submitView = new IIAS.Views.Submit({ model: tempDish });
+				submitView.render();
+			}
+			else {
+				tempDish.set({ response: 'That\'s not even a real dish is it? Try again.' });
+				
+				this.removeSubmitView();
+			}
+			
+			responseView = new IIAS.Views.Response({ model: tempDish });
 		}
 		// Else if no text was entered, send a custom message along with tempDish to a Response View
 		else {
 			tempDish.set({ response: 'How about you enter a dish? Wise guy.' })
 			responseView = new IIAS.Views.Response({ model: tempDish });
 			
-			// TODO: Remove Submit view rather than manually emptying container with jQuery?
-			$('#user-submission').empty();
+			this.removeSubmitView();
 		}
 		
 		responseView.render();
+	},
+	
+	removeSubmitView:function(){
+		// TODO: Remove Submit view rather than manually emptying container with jQuery?
+		$('#user-submission').empty();
 	}
 });
