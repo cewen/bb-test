@@ -78,7 +78,7 @@ $app->get('/dish/:name', function($name){
 
 
 
-// POST route
+// Create a new dish
 $app->post('/dish', function () use ($app){
 	$db = new db();
 	$mysqli = $db->connect();
