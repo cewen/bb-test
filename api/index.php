@@ -92,6 +92,67 @@ $app->post('/dish', function () use ($app){
 	echo json_encode($request);
 });
 
+
+// Update a dish
+$app->put('/dish', function () use ($app){
+	$db = new db();
+	$mysqli = $db->connect();
+
+	$request = json_decode($app->request->getBody());
+	$name = filter_var($request->name, FILTER_SANITIZE_STRING);
+	$response = filter_var($request->response, FILTER_SANITIZE_STRING);
+	
+	$query = "
+		INSERT INTO items (name, response, is_salad, flag) 
+		VALUES('$name', '', 2, 1) 
+		ON DUPLICATE KEY 
+		UPDATE name='$name', response='$response', is_salad=$request->is_salad, flag=$request->flag";
+
+	mysqli_query($mysqli, $query);
+	
+	$app->response()->header('Content-Type', 'application/json');
+	echo json_encode($request);
+});
+
+// Delete a dish
+$app->delete('/dish', function() use($app) {
+	$db = new db();
+	$mysqli = $db->connect();
+	$request = json_decode($app->request->getBody());
+
+	$name = filter_var($request->name, FILTER_SANITIZE_STRING);
+
+	$query = "
+		DELETE FROM items 
+		WHERE name='$name'";
+		
+	mysqli_query($mysqli, $query);
+	
+	$app->response()->header('Content-Type', 'application/json');
+	echo json_encode($request);
+});
+
+
+
+
+// ADMIN ROUTES
+$app->get('/admin/dishes', function() {
+	$db = new db();
+	$mysqli = $db->connect();
+	
+	$result_array = array();
+	
+	$res = mysqli_query($mysqli, "SELECT * FROM items WHERE flag = 1");
+	
+	while ($row = mysqli_fetch_assoc($res)) {
+		array_push($result_array, $row);
+	}
+	
+	echo json_encode($result_array);
+});
+
+
+
 // // PUT route
 // $app->put(
 //     '/put',

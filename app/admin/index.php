@@ -12,15 +12,15 @@
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		
 		<!-- build:css styles/modules.css -->
-			<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+			<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
 		<!-- endbuild -->
 		
 		<!-- build:css(.tmp) styles/main.css -->
-		<link rel="stylesheet" href="styles/main.css">
+		<link rel="stylesheet" href="../styles/admin.css">
 		<!-- endbuild -->
 			
 		<!-- build:js scripts/vendor/modernizr.js -->
-		<script src="bower_components/modernizr/modernizr.js"></script>
+		<script src="../bower_components/modernizr/modernizr.js"></script>
 		<!-- endbuild -->
 	</head>
 	<body>
@@ -28,12 +28,9 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		<div id="bb-unit" class="container">
-			<h1>Is It A Salad?<sup>&#0153;</sup> <small>The definitive source for salad determinations.</small></h1>
-			<form role="form" id="search-form"></form>
-			<h2 id="response"></h2>
-			<div id="user-submission"></div>
-		</div>
+		<ul id="admin-list">
+			
+		</ul>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
@@ -46,23 +43,21 @@
 		</script>
 
 		<!-- build:js scripts/vendor.js -->
-		<script src="bower_components/jquery/jquery.js"></script>
-		<script src="bower_components/underscore/underscore.js"></script>
-		<script src="bower_components/backbone/backbone.js"></script>
+		<script src="../bower_components/jquery/jquery.js"></script>
+		<script src="../bower_components/underscore/underscore.js"></script>
+		<script src="../bower_components/backbone/backbone.js"></script>
 		<!-- endbuild -->
 		
 		<!-- build:js({.tmp,app}) scripts/main.js -->
-		<script src="scripts/main.js"></script>
+		<script src="../scripts/admin/main.js"></script>
 		
 		<!-- Models -->
-		<script src="scripts/models/dish.js"></script>
+		<script src="../scripts/models/dish.js"></script>
 		<!-- Collections -->
-		<script src="scripts/collections/dishes.js"></script>
+		<script src="../scripts/admin/collections/dishes.js"></script>
 		<!-- Views -->
-		<script src="scripts/views/search.js"></script>
-		<script src="scripts/views/response.js"></script>
-		<script src="scripts/views/submit.js"></script>
-		
+		<script src="../scripts/admin/views/dish.js"></script>
+		<script src="../scripts/admin/views/dishes.js"></script>
 		<!-- endbuild -->
 	</body>
 </html>
